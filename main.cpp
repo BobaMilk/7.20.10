@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-struct Student;
+struct Student; //Declaring the struct student so that I won't get an error for vector<Student*> students.
 
 struct Course {
     string name;
@@ -18,7 +18,7 @@ struct Student {
 void print_student(Student* s) {
     cout << "Student's name: " << s->name << endl << "Student's Courses:" << endl;
     for (int i = 0;i < s->courses.size();i++) {
-        cout << s->courses.at(i)->name << endl;
+        cout << s->courses.at(i)->name << endl; //Prints the student's courses from the vector;
     }
     cout << endl;
 }
@@ -26,14 +26,14 @@ void print_student(Student* s) {
 void print_course(Course* c) {
     cout << "Course: " << c->name << endl << "Students Enrolled:" << endl;
     for (int i = 0;i < c->students.size();i++) {
-        cout << c->students.at(i)->name << endl;
+        cout << c->students.at(i)->name << endl; //Prints the courses' students from the vector;
     }
     cout << endl;
 }
 
 void enroll(Student* s, Course* c) {
-    s->courses.push_back(c);
-    c->students.push_back(s);
+    s->courses.push_back(c); //adds to the vector
+    c->students.push_back(s); //adds to the vector
     cout << s->name << " has been sucessfully added to " << c->name << ".\n";
 }
 
@@ -68,7 +68,7 @@ int main()
     vector<Student*> students;
     vector<Course*> courses;
 
-    for (int i = 0;i < 4;i++) {
+    for (int i = 0;i < 4;i++) { //Creates all the courses and adds them to the courses vector in main.
         Course* a = new Course;
         a->name = courseNames[i];
         courses.push_back(a);
@@ -85,20 +85,20 @@ int main()
         if (
             userInput == "Y") {
             cout << "What is their name? (Case Sensitive)\n";
-            cin.ignore();
+            cin.ignore(); //Prevent the getline issue.
             getline(cin, userInput);
-            Student* current = new Student;
-            current->name = userInput;
-            students.push_back(current);
+            Student* current = new Student; //Creates a new Student.
+            current->name = userInput; //Sets the new Student's name variable to userInput.
+            students.push_back(current); //Adds the new Student to the students vector in main.
             s = current;
         }
         else { //Already existing student.
             cout << "What is the name of the student? (Case Sensitive)\n";
-            cin.ignore();
+            cin.ignore(); //Prevent the getline issue.
             getline(cin,userInput);
             for (int i = 0;i < students.size();i++) {
                 if (students.at(i)->name == userInput) { //Finds a match in the vector.
-                    s = students.at(i);
+                    s = students.at(i); //Sets the pointer s to the matching student name.
                     cout << "Match Found.\n";
                 }
             }
@@ -108,11 +108,11 @@ int main()
             cin >> userInput;
             for (int i = 0;i < 4;i++) { //Compares it
                 if (userInput == courses.at(i)->name) {
-                    c = courses.at(i);
+                    c = courses.at(i); //Sets the pointer c to the corresponding course.
                     found = true;
                 }
             }
-        } while (found == false);
+        } while (found == false); //Runs this while loop, which asks for the course they would like to look into, until they input an available course.
 
         menu(s, c);
     } while (userInput != "q");
